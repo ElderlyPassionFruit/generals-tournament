@@ -11,8 +11,8 @@ int main(int argc, char* argv[]) {
     }
     string configpath = argv[1];
     Game game(configpath);
-    string log = game.Process();
-    cerr << "log:" << endl;
-    cout << log << endl;
+    string log = game.Process() + "0\n";
+    // cerr << "log:" << endl;
+    cerr << log << endl;
     exit(EXIT_SUCCESS);
 }

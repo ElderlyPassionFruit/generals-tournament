@@ -1,5 +1,6 @@
 #include "Map.h"
 
+#include <iostream>
 #include <fstream>
 
 Map::Map(const std::string& mappath) : timer_(0) {
@@ -28,9 +29,21 @@ Map::Map(const std::string& mappath) : timer_(0) {
     }
 }
 
+void Map::PrintMap() const {
+    return;
+    std::cerr << "output map" << std::endl;
+    for (int x = 0; x < static_cast<int>(n_); ++x) {
+        for (int y = 0; y < static_cast<int>(m_); ++y){
+            std::cerr << map_[x][y].GetArmySize() << " ";
+        }
+        std::cerr << std::endl;
+    }
+    std::cerr << "finish" << std::endl;
+}
+
 void Map::MakeTurn() {
     ++timer_;
-    if (timer_ % 2 == 0) {
+    if (timer_ % 1 == 0) {
         for (size_t x = 0; x < n_; ++x) {
             for (size_t y = 0; y < m_; ++y) {
                 if (map_[x][y].GetOwner() != 0 &&
@@ -41,7 +54,7 @@ void Map::MakeTurn() {
             }
         }
     }
-    if (timer_ % 50 == 0) {
+    if (timer_ % 2 == 0) {
         for (size_t x = 0; x < n_; ++x) {
             for (size_t y = 0; y < m_; ++y) {
                 if (map_[x][y].GetOwner() != 0 && (map_[x][y].GetType() == Cell::CellType::EMPTY)) {
@@ -161,6 +174,9 @@ std::string Map::GetPlayersStatistics() const {
 }
 
 bool Map::IsDestroyed(size_t player_id) const {
+    if (!player_id) {
+        return false;
+    }
     for (size_t x = 0; x < n_; ++x) {
         for (size_t y = 0; y < m_; ++y) {
             if (map_[x][y].GetOwner() == player_id) {
@@ -185,7 +201,7 @@ std::string Map::GetLog(size_t player_id) const {
             if (IsVisible(player_id, x, y)) {
                 output += "1 " + std::to_string(map_[x][y].GetType());
                 if (map_[x][y].GetType() != Cell::CellType::MOUNTAINS) {
-                    output += std::to_string(map_[x][y].GetOwner()) + " " +
+                    output += " " + std::to_string(map_[x][y].GetOwner()) + " " +
                               std::to_string(map_[x][y].GetArmySize());
                 }
                 output += "\n";
@@ -223,4 +239,8 @@ void Map::DestroyPlayer(size_t player_id, size_t new_owner) {
             }
         }
     }
+}
+
+size_t Map::GetPlayers() const {
+    return players_;
 }

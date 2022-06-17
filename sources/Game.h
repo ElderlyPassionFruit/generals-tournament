@@ -13,5 +13,4 @@ public:
 private:
     Config config_;
     Map map_;
-    std::vector<Player> players_;
 };
