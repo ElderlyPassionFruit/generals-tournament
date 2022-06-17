@@ -1,0 +1,4 @@
+../examples/simple_map.txt
+2
+../examples/afk_strategy.cpp
+../examples/random_strategy.cpp
