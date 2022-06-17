@@ -11,6 +11,8 @@ struct Coordinates {
     }
 };
 
+int Dist(const Coordinates& lhs, const Coordinates& rhs);
+
 class Cell {
 public:
     enum CellType { UNKNOWN, EMPTY, CITY, CAPITAL, MOUNTAINS };
