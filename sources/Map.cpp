@@ -53,8 +53,47 @@ void Map::MakeTurn() {
 }
 
 void Map::MakeMove(size_t player_id, const Coordinates& from, const Coordinates& to,
-                         size_t army_size) {
+                         size_t move_type) {
+    if (!IsIn(from.x, from.y) || !IsIn(to.x, to.y) || Dist(from, to) != 1 || map_[from.x][from.y].GetOwner() != player_id || map_[to.x][to.y].GetType() == Cell::CellType::MOUNTAINS) {
+        DestroyPlayer(player_id);
+        return;
+    }
+    size_t army_size = 0;
+    if (move_type == 1) {
+        if (map_[from.x][from.y].GetArmySize() >= 2) {
+            army_size = map_[from.x][from.y].GetArmySize() - 1;
+        }
+    } else if (move_type == 2) {
+        if (map_[from.x][from.y].GetArmySize() >= 2) {
+            army_size = map_[from.x][from.y].GetArmySize() / 2;
+        }
+    } else {
+        DestroyPlayer(player_id);
+        return;
+    }
 
+    if (!army_size) {
+        return;
+    }
+
+    map_[from.x][from.y].GetArmySize() -= army_size;
+    if (map_[to.x][to.y].GetOwner() == player_id) {
+        map_[to.x][to.y].GetArmySize() += army_size;
+    } else {
+        size_t lost_army = std::min(army_size, map_[to.x][to.y].GetArmySize());
+        army_size -= lost_army;
+        map_[to.x][to.y].GetArmySize() -= lost_army;
+        if (army_size) {
+            if (map_[to.x][to.y].GetType() == Cell::CellType::CAPITAL) {
+                size_t other_player_id = map_[to.x][to.y].GetOwner();
+                map_[to.x][to.y] = Cell(Cell::CellType::CITY, player_id, army_size);
+                DestroyPlayer(other_player_id, player_id);
+            } else {
+                map_[to.x][to.y].GetOwner() = player_id;
+                map_[to.x][to.y].GetArmySize() = army_size;
+            }
+        }
+    }
 }
 
 std::string Map::GetInitialInput(size_t player_id) const {
@@ -66,9 +105,6 @@ bool Map::IsVisible(size_t player_id, int x, int y) const {
     if (!player_id) {
         return true;
     }
-    static const auto IsIn = [&](int x, int y) -> bool {
-        return 0 <= x && x < n_ && 0 <= y && y < m_;
-    };
     for (int dx = -1; dx <= 1; ++dx) {
         for (int dy = -1; dy <= 1; ++dy) {
             int nx = x + dx;
@@ -86,8 +122,8 @@ bool Map::IsVisible(size_t player_id, int x, int y) const {
 
 Map::TContainer Map::GetVisibleMap(size_t player_id) const {
     auto map = map_;
-    for (int x = 0; x < n_; ++x) {
-        for (int y = 0; y < m_; ++y) {
+    for (int x = 0; x < static_cast<int>(n_); ++x) {
+        for (int y = 0; y < static_cast<int>(m_); ++y) {
             if (IsVisible(player_id, x, y)) {
                 if (map[x][y].GetType() == Cell::CellType::EMPTY ||
                     map[x][y].GetType() == Cell::CellType::CAPITAL) {
@@ -105,7 +141,7 @@ PlayerStatistics Map::GetPlayerStatistics(size_t player_id) const {
     PlayerStatistics player_statistics;
     for (size_t x = 0; x < n_; ++x) {
         for (size_t y = 0; y < m_; ++y) {
-            if (map_[x][y].GetOwner()) {
+            if (map_[x][y].GetOwner() == player_id) {
                 player_statistics.total_land_size += 1;
                 player_statistics.total_army_size += map_[x][y].GetArmySize();
             }
@@ -144,8 +180,8 @@ std::string Map::GetLog(size_t player_id) const {
         output += "1\n";
     }
     output += GetPlayersStatistics();
-    for (int x = 0; x < n_; ++x) {
-        for (int y = 0; y < m_; ++y) {
+    for (int x = 0; x < static_cast<int>(n_); ++x) {
+        for (int y = 0; y < static_cast<int>(m_); ++y) {
             if (IsVisible(player_id, x, y)) {
                 output += "1 " + std::to_string(map_[x][y].GetType());
                 if (map_[x][y].GetType() != Cell::CellType::MOUNTAINS) {
@@ -165,4 +201,26 @@ std::string Map::GetLog(size_t player_id) const {
         }
     }
     return output;
+}
+
+bool Map::IsIn(int x, int y) const {
+    return 0 <= x && x < static_cast<int>(n_) && 0 <= y && y < static_cast<int>(m_);
+}
+
+void Map::DestroyPlayer(size_t player_id, size_t new_owner) {
+    for (size_t x = 0; x < n_; ++x) {
+        for (size_t y = 0; y < m_; ++y) {
+            if (map_[x][y].GetOwner() == player_id) {
+                if (!new_owner) {
+                    if (map_[x][y].GetType() == Cell::CellType::CAPITAL) {
+                        map_[x][y].GetType() = Cell::CellType::CITY;
+                    }
+                } else {
+                    map_[x][y].GetArmySize() += 1;
+                    map_[x][y].GetArmySize() /= 2;
+                }
+                map_[x][y].GetOwner() = new_owner;
+            }
+        }
+    }
 }
