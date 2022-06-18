@@ -1,5 +1,5 @@
-set(MAIN_HEADERS Cell.h Config.h Game.h Map.h Player.h)
-set(MAIN_SOURCES main.cpp Cell.cpp Config.cpp Game.cpp Map.cpp Player.cpp)
+set(MAIN_HEADERS Cell.h Config.h Game.h Map.h)
+set(MAIN_SOURCES main.cpp Cell.cpp Config.cpp Game.cpp Map.cpp)
 add_executable(generals-tournament ${MAIN_HEADERS} ${MAIN_SOURCES})
 
 set(GEN_HEADERS Cell.h)

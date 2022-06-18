@@ -33,7 +33,7 @@ void Map::PrintMap() const {
     return;
     std::cerr << "output map" << std::endl;
     for (int x = 0; x < static_cast<int>(n_); ++x) {
-        for (int y = 0; y < static_cast<int>(m_); ++y){
+        for (int y = 0; y < static_cast<int>(m_); ++y) {
             std::cerr << map_[x][y].GetArmySize() << " ";
         }
         std::cerr << std::endl;
@@ -43,7 +43,7 @@ void Map::PrintMap() const {
 
 void Map::MakeTurn() {
     ++timer_;
-    if (timer_ % 1 == 0) {
+    if (timer_ % 2 == 0) {
         for (size_t x = 0; x < n_; ++x) {
             for (size_t y = 0; y < m_; ++y) {
                 if (map_[x][y].GetOwner() != 0 &&
@@ -54,7 +54,7 @@ void Map::MakeTurn() {
             }
         }
     }
-    if (timer_ % 2 == 0) {
+    if (timer_ % 50 == 0) {
         for (size_t x = 0; x < n_; ++x) {
             for (size_t y = 0; y < m_; ++y) {
                 if (map_[x][y].GetOwner() != 0 && (map_[x][y].GetType() == Cell::CellType::EMPTY)) {
@@ -66,8 +66,13 @@ void Map::MakeTurn() {
 }
 
 void Map::MakeMove(size_t player_id, const Coordinates& from, const Coordinates& to,
-                         size_t move_type) {
-    if (!IsIn(from.x, from.y) || !IsIn(to.x, to.y) || Dist(from, to) != 1 || map_[from.x][from.y].GetOwner() != player_id || map_[to.x][to.y].GetType() == Cell::CellType::MOUNTAINS) {
+                   size_t move_type) {
+    if (!IsIn(from.x, from.y) || !IsIn(to.x, to.y) || Dist(from, to) != 1 ||
+        map_[from.x][from.y].GetOwner() != player_id ||
+        map_[to.x][to.y].GetType() == Cell::CellType::MOUNTAINS) {
+        std::cerr << "destroy player_id = " << player_id << std::endl;
+        std::cerr << "from.x = " << from.x << " from.y = " << from.y << " to.x = " << to.x
+                  << " to.y = " << to.y << std::endl;
         DestroyPlayer(player_id);
         return;
     }

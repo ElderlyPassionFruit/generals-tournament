@@ -6,6 +6,7 @@
 
 Config::Config(const std::string& configpath) {
     std::fstream in(configpath);
+    in >> logpath_;
     in >> mappath_;
     if (!std::filesystem::exists(mappath_)) {
         throw std::runtime_error("Config::Config - file " + mappath_ + " doesn't exists");
@@ -20,6 +21,10 @@ Config::Config(const std::string& configpath) {
                                      "\" doesn't exists");
         }
     }
+}
+
+std::string Config::GetLogpath() const {
+    return logpath_;
 }
 
 std::string Config::GetMappath() const {

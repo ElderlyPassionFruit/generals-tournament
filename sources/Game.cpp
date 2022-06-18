@@ -4,16 +4,16 @@
 
 // Game
 
-Game::Game(const std::string& configpath)
-    : config_(configpath), map_(config_.GetMappath()) {
+Game::Game(const std::string& configpath) : config_(configpath), map_(config_.GetMappath()) {
 }
 
 std::string Game::Process() {
-    // std::cerr << "Process start" << std::endl;
     std::string log = map_.GetInitialInput();
     static const size_t MAX_ITERATION = 1000;
-    
-    auto alive = [&] () -> bool {
+
+    std::vector<bool> must_skip(map_.GetPlayers() + 1, false);
+
+    auto alive = [&]() -> bool {
         size_t cnt_alive = 0;
         for (size_t player_id = 1; player_id <= map_.GetPlayers(); ++player_id) {
             cnt_alive += !map_.IsDestroyed(player_id);
@@ -21,28 +21,26 @@ std::string Game::Process() {
         return cnt_alive > 1;
     };
 
-    map_.PrintMap();
-
     for (size_t it = 1; it <= MAX_ITERATION && alive(); ++it) {
-        // std::cerr << "it = " << it << std::endl;
+        if (it % 5 == 0) {
+            std::cerr << "progress: " << (double)it / MAX_ITERATION * 100 << "%" << std::endl;
+        }
         for (size_t player_id = 1; player_id <= map_.GetPlayers() && alive(); ++player_id) {
-            // std::cerr << "player_id = " << player_id << std::endl;
-            map_.PrintMap();
-            if (it == 1) {
-                // std::cerr << "initial input for player_id = " << player_id << std::endl;
-                std::cout << map_.GetInitialInput(player_id);
-                // std::cerr << "finish" << std::endl;
+            if (must_skip[player_id]) {
+                continue;
             }
-            // std::cerr << "start output" << std::endl;
+            if (it == 1) {
+                std::cout << map_.GetInitialInput(player_id);
+            }
             std::cout << map_.GetLog(player_id);
             std::cout.flush();
-            // std::cerr << "finish output" << std::endl;
-            // std::cerr << "start input" << std::endl;
+            if (map_.IsDestroyed(player_id)) {
+                must_skip[player_id] = true;
+                continue;
+            }
             int type;
             std::cin >> type;
-            // std::cerr << "type = " << type << std::endl;
             if (type == -1) {
-                // std::cerr << "continue" << std::endl;
                 continue;
             }
             int i, j, i_, j_;
@@ -54,7 +52,6 @@ std::string Game::Process() {
             --j;
             --i_;
             --j_;
-            // std::cerr << "finish input" << std::endl;
             map_.MakeMove(player_id, Coordinates(i, j), Coordinates(i_, j_), type);
             log += map_.GetLog();
         }
@@ -63,5 +60,12 @@ std::string Game::Process() {
             log += map_.GetLog();
         }
     }
+    if (!alive()) {
+        std::cerr << "progress: " << "100%" << std::endl;
+    }
     return log;
+}
+
+Config Game::GetConfig() const {
+    return config_;
 }

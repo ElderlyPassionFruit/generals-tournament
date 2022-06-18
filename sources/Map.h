@@ -20,12 +20,13 @@ public:
     Map(const std::string& mappath);
     void MakeTurn();
     void MakeMove(size_t player_id, const Coordinates& from, const Coordinates& to,
-                         size_t move_type);
+                  size_t move_type);
     std::string GetInitialInput(size_t player_id = 0) const;
     std::string GetLog(size_t player_id = 0) const;
     bool IsDestroyed(size_t player_id) const;
     size_t GetPlayers() const;
     void PrintMap() const;
+
 private:
     bool IsVisible(size_t player_id, int x, int y) const;
     Map::TContainer GetVisibleMap(size_t player_id) const;
