@@ -17,7 +17,7 @@ if __name__ == "__main__":
     for i in range(len(programs_files)):
         PROGRAM_CMDS[i + 1] = programs_files[i]
 
-    INTERACTOR_CMD = "generals-tournament.exe"
+    INTERACTOR_CMD = "bin/generals-tournament.exe"
 
     programs = {i : subprocess.Popen(cmd, stdin = subprocess.PIPE, stdout = subprocess.PIPE) for (i, cmd) in PROGRAM_CMDS.items()}
     cur_program = 0
