@@ -118,7 +118,7 @@
     ```
     cd generals-tournament/bin && ./map-generator 5 10 3 > ../examples/map.txt
     ```
-создаст карту из 5 строк и 10 столбцов для трёх игроков и положит её в файл ```generals-tournament/examples/map.txt```.
+    Вызов такой команды создаст карту из 5 строк и 10 столбцов для трёх игроков и положит её в файл ```generals-tournament/examples/map.txt```.
 
 2. Для генерации лога вам нужен ```config``` файл, его формат максимально простой: 
 
