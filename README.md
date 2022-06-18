@@ -110,7 +110,7 @@
     brew install cmake
     brew install qt@5
     ```
-    Если у вас windows — молитесь
+    Если у вас windows: с официальных сайтов скачайте и установите python 3, mingw-w64 8.1 или старше, cmake 3.9 или старше, git. Соберите Qt 5 из исходников, установите Qt Creator.
 
 1. Откройте терминал, перейдите в директорию, в которой хотите получить этот репозиторий, и скачайте его.
     ```
@@ -124,7 +124,14 @@
     ```
     Под windows
     ```
-    Перекреститься
+    - Откройте "MinGW-w64 Command Line" из меню пуск
+    - Найдите CMake GUI в консоли и запустите, скорее всего выйдет так:
+        cd /d "C:\Program Files\CMake\bin"
+        cmake-gui.exe
+    - Выберите папку с исходниками
+    - Нажмите "Configure" и выберите "MinGW makefiles"
+    - Нажмите "Generate"
+    - В той самой консоли перейдите в эту папку и напишите "make"
     ```
 3. В папке ```generals-tournament/bin``` собрались бинарники стратегий, прописанные в ```generals-tournament/examples/CMakeLists.txt```, бинарник ```generals-tournament```, нужный для запуска стратегий и генератор карт ```map-generator```.
 
@@ -132,6 +139,7 @@
     ```
     qmake generals_visual.pro -o Makefile && make
     ```
+    Под виндой откройте `generals_visual.pro` в Qt Creator и соберите проект в Release версии. Бинарник будет там, где указано, в подпапке Release. Скорее всего его нельза будет запустить НЕ из-под Qt Creator (если не перенести необходимые библиотеки или не запустить windeployqt)
 5. Вы великолепны, в папке ```generals-tournament/generals_visual``` появился бинарник ```generals-visual```.
 
 ### Запуск

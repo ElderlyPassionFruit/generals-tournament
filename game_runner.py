@@ -15,9 +15,9 @@ if __name__ == "__main__":
     PROGRAM_CMDS = {}
 
     for i in range(len(programs_files)):
-        PROGRAM_CMDS[i + 1] = "./" + programs_files[i]
+        PROGRAM_CMDS[i + 1] = programs_files[i]
 
-    INTERACTOR_CMD = "./bin/generals-tournament"
+    INTERACTOR_CMD = "generals-tournament.exe"
 
     programs = {i : subprocess.Popen(cmd, stdin = subprocess.PIPE, stdout = subprocess.PIPE) for (i, cmd) in PROGRAM_CMDS.items()}
     cur_program = 0
@@ -35,10 +35,10 @@ if __name__ == "__main__":
                     cur_program = 1
                     first_line = False
                 if not (programs[cur_program].poll() is None) or not alive[cur_program]:
-                    # print(alive, cur_program)
+                    #print(alive, cur_program)
                     continue
-                # print("cur_program =", cur_program)
-                # print(alive)
+                #print("cur_program =", cur_program)
+                #print(alive)
                 line = ""
                 if first_line:
                     line = interactor.stdout.readline()
@@ -50,15 +50,15 @@ if __name__ == "__main__":
                     k = int(k)
 
                 ok = True
-                # print(k + n * m + 1)
+                #print(k + n * m + 1)
                 must_finished = False
                 for i in range(k + n * m + 1):
                     line = interactor.stdout.readline()
-                    # print("line2", line)
-                    if i == 0 and not line in [b"0\n", b"1\n"]:
+                    #print("line2", line)
+                    if i == 0 and not line in [b"0\r\n", b"1\r\n"]:
                         must_finished = True
                         break
-                    # print("line2 =", line)
+                    #print("line2 =", line)
                     programs[cur_program].stdin.write(line)
                     if i == 0 and line == b'0\n':
                         alive[cur_program] = False
@@ -70,10 +70,10 @@ if __name__ == "__main__":
 
                 if ok:
                     move = programs[cur_program].stdout.readline()
-                    # print("move =", move)
+                    #print("move =", move)
                     interactor.stdin.write(move)
                     interactor.stdin.flush()
-                # sleep(0.05)
+                #sleep(0.05)
         except StopIteration:
             pass
 
@@ -81,5 +81,5 @@ if __name__ == "__main__":
 
     print("Interactor exited, terminating children")
     for (i, prog) in programs.items():
-        print(f"Terminating id {i}")
+        print("Terminating id " + str(i))
         prog.kill()
