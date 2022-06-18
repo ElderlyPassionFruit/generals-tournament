@@ -89,6 +89,7 @@
 ### Установка
 
 0. Предустановите библиотеки
+    
     Для linux это делается так
     ```
     sudo apt update
@@ -109,14 +110,21 @@
     brew install cmake
     brew install qt@5
     ```
+    Если у вас windows — молитесь
 
 1. Откройте терминал, перейдите в директорию, в которой хотите получить этот репозиторий, и скачайте его.
     ```
     git clone https://github.com/ElderlyPassionFruit/generals-tournament.git --recursive
     ```
 2. Соберите репозиторий
+
+    Под linux/macos это делается так
     ```
     cd generals-tournament && mkdir build && cd build && cmake .. && make
+    ```
+    Под windows
+    ```
+    Перекреститься
     ```
 3. В папке ```generals-tournament/bin``` собрались бинарники стратегий, прописанные в ```generals-tournament/examples/CMakeLists.txt```, бинарник ```generals-tournament```, нужный для запуска стратегий и генератор карт ```map-generator```.
 
