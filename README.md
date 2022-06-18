@@ -108,6 +108,7 @@
     ```
     brew install make
     brew install cmake
+    brew install qt
     brew install qt@5
     ```
     Если у вас windows — молитесь
