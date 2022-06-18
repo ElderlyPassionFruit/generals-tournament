@@ -3,6 +3,7 @@
 #include <random>
 #include <time.h>
 #include <algorithm>
+#include <cassert>
 
 using namespace std;
 
@@ -32,6 +33,7 @@ void output_afk() {
 
 void output_move(int type, int x1, int y1, int x2, int y2) {
     cout << type << " " << x1 + 1 << " " << y1 + 1 << " " << x2 + 1 << " " << y2 + 1 << endl;
+    // cerr << type << " " << x1 + 1 << " " << y1 + 1 << " " << x2 + 1 << " " << y2 + 1 << endl;
 }
 
 int n, m, k, id;
@@ -52,15 +54,20 @@ void input() {
             auto& cell = info[x][y];
             int value;
             cin >> cell.visible >> value;
+            // cerr << value << " ";
+            assert(value >= 1 && value <= 4);
             cell.type = static_cast<CellType>(value);
+            cell.owner = 0;
+            cell.army_size = 0;
             if (cell.visible && cell.type != MOUNTAINS) {
                 cin >> cell.owner >> cell.army_size;
             }
         }
+        // cerr << endl;
     }
 }
 
-mt19937 rnd(time(0));
+mt19937 rnd(123);
 
 void random_move() {
     vector<pair<int, int>> cells;

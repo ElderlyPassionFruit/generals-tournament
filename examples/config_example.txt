@@ -1,4 +1,5 @@
+generals_visual/log.txt
 examples/simple_map.txt
 2
-bin/afk_strategy
+bin/random_strategy
 bin/random_strategy
