@@ -98,6 +98,8 @@
     sudo apt install cmake
     sudo apt install qt5-default
     ```
+    Если вдруг не поставилась последняя библиотека, подойдите к Васе, он поможет.
+
 1. Откройте терминал, перейдите в директорию, в которой хотите получить этот репозиторий, и скачайте его.
     ```
     git clone https://github.com/ElderlyPassionFruit/generals-tournament.git --recursive
@@ -138,7 +140,7 @@
 
     Пример:
     ```
-    python3 game_runner.py examples/config_example.py
+    python3 game_runner.py examples/config_example.txt
     ```
     После этого, если ваш (и мой) код работает корректно, в файле, в который вы хотели записать лог запишется лог.
 
