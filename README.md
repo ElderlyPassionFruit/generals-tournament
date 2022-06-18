@@ -90,6 +90,14 @@
 
 ### Установка
 
+0. Предустановите библиотеки
+    ```
+    sudo apt update
+    sudo apt upgrade
+    sudo apt install make
+    sudo apt install cmake
+    sudo apt install qt5-default
+    ```
 1. Откройте терминал, перейдите в директорию, в которой хотите получить этот репозиторий, и скачайте его.
     ```
     git clone https://github.com/ElderlyPassionFruit/generals-tournament.git --recursive
@@ -101,9 +109,6 @@
 3. В папке ```generals-tournament/bin``` собрались бинарники стратегий, прописанные в ```generals-tournament/examples/CMakeLists.txt```, бинарник ```generals-tournament```, нужный для запуска стратегий и генератор карт ```map-generator```.
 
 4. Осталось собрать визуализатор, для этого перейдите в директорию ```generals-tournament/generals_visual```, и вызовите
-    ```
-    sudo apt-get install qt5-default
-    ```
     ```
     qmake generals_visual.pro -o Makefile && make
     ```

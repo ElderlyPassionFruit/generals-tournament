@@ -9,7 +9,7 @@ Game::Game(const std::string& configpath) : config_(configpath), map_(config_.Ge
 
 std::string Game::Process() {
     std::string log = map_.GetInitialInput();
-    static const size_t MAX_ITERATION = 1000;
+    static const size_t MAX_ITERATION = 10000;
 
     std::vector<bool> must_skip(map_.GetPlayers() + 1, false);
 
