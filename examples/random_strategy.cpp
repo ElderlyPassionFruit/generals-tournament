@@ -7,22 +7,16 @@
 
 using namespace std;
 
-enum CellType{
-    UNKNOWN,
-    EMPTY,
-    CITY,
-    CAPITAL,
-    MOUNTAINS
-};
+enum CellType { UNKNOWN, EMPTY, CITY, CAPITAL, MOUNTAINS };
 
-struct Cell{
+struct Cell {
     int visible;
     CellType type;
     int owner;
     int army_size;
 };
 
-struct Statistics{
+struct Statistics {
     int total_army;
     int total_fields;
 };
@@ -33,12 +27,11 @@ void output_afk() {
 
 void output_move(int type, int x1, int y1, int x2, int y2) {
     cout << type << " " << x1 + 1 << " " << y1 + 1 << " " << x2 + 1 << " " << y2 + 1 << endl;
-    // cerr << type << " " << x1 + 1 << " " << y1 + 1 << " " << x2 + 1 << " " << y2 + 1 << endl;
 }
 
 int n, m, k, id;
 vector<Statistics> stat;
-vector<vector<Cell>> info;    
+vector<vector<Cell>> info;
 
 void input() {
     int alive;
@@ -54,7 +47,6 @@ void input() {
             auto& cell = info[x][y];
             int value;
             cin >> cell.visible >> value;
-            // cerr << value << " ";
             assert(value >= 1 && value <= 4);
             cell.type = static_cast<CellType>(value);
             cell.owner = 0;
@@ -63,7 +55,6 @@ void input() {
                 cin >> cell.owner >> cell.army_size;
             }
         }
-        // cerr << endl;
     }
 }
 
@@ -84,7 +75,8 @@ void random_move() {
     vector<pair<int, int>> dirs = {{-1, 0}, {1, 0}, {0, 1}, {0, -1}};
     shuffle(dirs.begin(), dirs.end(), rnd);
     for (auto [dx, dy] : dirs) {
-        if (abs(dx) + abs(dy) != 1) continue;
+        if (abs(dx) + abs(dy) != 1)
+            continue;
         int nx = x + dx;
         int ny = y + dy;
         if (0 <= nx && nx < n && 0 <= ny && ny < m && info[nx][ny].type != MOUNTAINS) {
@@ -98,7 +90,7 @@ void random_move() {
 int main() {
     cin >> n >> m >> k >> id;
     stat.resize(k);
-    info.resize(n, vector<Cell>(m));   
+    info.resize(n, vector<Cell>(m));
     while (true) {
         input();
         random_move();

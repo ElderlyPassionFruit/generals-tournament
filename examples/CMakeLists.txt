@@ -1,4 +1,5 @@
 add_executable(afk_strategy afk_strategy.cpp)
 add_executable(random_strategy random_strategy.cpp)
+add_executable(simple_greedy_strategy simple_greedy_strategy.cpp)
 
-set_target_properties(afk_strategy random_strategy PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BIN_DIR})
+set_target_properties(afk_strategy random_strategy simple_greedy_strategy PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BIN_DIR})

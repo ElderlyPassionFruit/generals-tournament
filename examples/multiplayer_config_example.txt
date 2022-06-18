@@ -1,7 +1,7 @@
-generals_visual/multiplayer_log.txt
+examples/multiplayer_log.txt
 examples/multiplayer_map.txt
 5
-bin/random_strategy
+bin/simple_greedy_strategy
 bin/random_strategy
 bin/random_strategy
 bin/afk_strategy

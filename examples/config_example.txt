@@ -1,5 +1,5 @@
-generals_visual/log.txt
+examples/log.txt
 examples/simple_map.txt
 2
 bin/random_strategy
-bin/random_strategy
+bin/simple_greedy_strategy
