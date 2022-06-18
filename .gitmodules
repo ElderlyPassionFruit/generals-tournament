@@ -1,3 +1,3 @@
 [submodule "generals_visual"]
 	path = generals_visual
-	url = git@github.com:skorja/generals_visual.git
+	url = https://github.com/skorja/generals_visual.git
