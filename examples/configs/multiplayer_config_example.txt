@@ -1,0 +1,8 @@
+examples/multiplayer_log.txt
+examples/multiplayer_map.txt
+5
+bin/uhtyzmaaa
+bin/super_smart_strategy
+bin/super_smart_strategy
+bin/vasili
+bin/vasili

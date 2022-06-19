@@ -1,8 +1,0 @@
-examples/multiplayer_log.txt
-examples/multiplayer_map.txt
-5
-bin/simple_greedy_strategy
-bin/random_strategy
-bin/random_strategy
-bin/afk_strategy
-bin/afk_strategy
