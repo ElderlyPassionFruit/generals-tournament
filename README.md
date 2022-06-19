@@ -1,5 +1,7 @@
 # generals-tournament
 
+Уже готовые скомпилированные бинарники в "generals-tournament-win.zip"
+
 ## Disclaimer
 
 Проще понять правила сыграв ```~10``` игр по ссылке [generals.io](https://generals.io), мы почти не меняли правила, ниже формальное описание нашей версии игры.
