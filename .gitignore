@@ -1,6 +1,12 @@
-polygon/
+# tmp
 bin/
 build/
+
+# vscode
+.vscode/
+
+# secret
+polygon/
 vasili.cpp
 uhtyzmaaa.cpp
 super_smart_strategy.cpp
