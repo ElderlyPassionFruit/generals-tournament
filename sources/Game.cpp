@@ -61,7 +61,8 @@ std::string Game::Process() {
         }
     }
     if (!alive()) {
-        std::cerr << "progress: " << "100%" << std::endl;
+        std::cerr << "progress: "
+                  << "100%" << std::endl;
     }
     return log;
 }
