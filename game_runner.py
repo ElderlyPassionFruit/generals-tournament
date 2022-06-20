@@ -6,7 +6,8 @@ from time import sleep
 if __name__ == "__main__":
     configpath = sys.argv[1]
     print("config path =", configpath)
-    programs = open(configpath, "r").read().split('\n')[2:]
+    with open(configpath, "r") as f:
+        programs = [line.strip() for line in f.readlines()[2:]]
     n = int(programs[0])
     programs_files = programs[1:]
     print("number of players =", n)
