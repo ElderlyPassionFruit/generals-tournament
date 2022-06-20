@@ -7,4 +7,6 @@ set_target_properties(afk_strategy random_strategy simple_greedy_strategy PROPER
 # add_executable(super_smart_strategy super_smart_strategy.cpp)
 # add_executable(vasili vasili.cpp)
 # add_executable(uhtyzmaaa uhtyzmaaa.cpp)
-# set_target_properties(smart_strategy vasili super_smart_strategy uhtyzmaaa PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BIN_DIR})
+# add_executable(not.derwes.at.all not.derwes.at.all.cpp)
+# add_executable(EPCSharper EPCSharper.cpp)
+# set_target_properties(smart_strategy vasili super_smart_strategy uhtyzmaaa not.derwes.at.all EPCSharper PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BIN_DIR})

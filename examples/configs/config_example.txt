@@ -1,5 +1,5 @@
 examples/logs/log.txt
-examples/maps/test_map.txt
+examples/maps/simple_map.txt
 2
-bin/simple_greedy_strategy
+bin/afk_strategy
 bin/random_strategy
